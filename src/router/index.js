@@ -1,0 +1,68 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+import Login from '../views/Login.vue'
+// import Campaigns from '../views/Campaigns.vue'
+// import Campaign from '../views/Campaign.vue'
+// import Users from '../views/Users.vue'
+// import User from '../views/User.vue'
+// import Ads from '../views/Ads.vue'
+// import Statistics from '../views/Statistics.vue'
+// import Payments from '../views/Payments.vue'
+// import Sites from '../views/Sites.vue'
+
+const Placeholder = { template: '<div>Сторінка в розробці</div>' }
+
+const routes = [
+    {
+        path: '/',
+        name: 'Sign in',
+        component: Login
+    },
+    {
+        path: '/campaigns',
+        name: 'Campaigns',
+        component: Placeholder
+    },
+    {
+        path: '/campaign/:id',
+        name: 'Campaign',
+        component: Placeholder
+    },
+    {
+        path: '/users',
+        name: 'Users',
+        component: Placeholder
+    },
+    {
+        path: '/user/:id',
+        name: 'User',
+        component: Placeholder
+    },
+    {
+        path: '/ads',
+        name: 'Ads',
+        component: Placeholder
+    },
+    {
+        path: '/statistics',
+        name: 'Statistics',
+        component: Placeholder
+    },
+    {
+        path: '/payments',
+        name: 'Payments',
+        component: Placeholder
+    },
+    {
+        path: '/sites',
+        name: 'Sites',
+        component: Placeholder
+    },
+]
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes
+})
+
+export default router

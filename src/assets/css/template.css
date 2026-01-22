@@ -43,6 +43,7 @@
     height: 30px;
     width: auto;
     display: block;
+    padding: 40px;
 }
 
 .login-container .form-wrapper {

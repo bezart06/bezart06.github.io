@@ -7,7 +7,7 @@
             <div class="top-bar">
                 <span class="top-bar-text">Affiliate Sign In</span>
                 <div class="top-bar-image">
-                    <img src="https://via.placeholder.com/40" alt="Logo" />
+                    <img src="/favicon.ico" alt="Logo" />
                 </div>
             </div>
 

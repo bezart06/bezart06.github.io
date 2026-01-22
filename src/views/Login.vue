@@ -1,6 +1,44 @@
 <template>
-    <div class="flex">
-        Test Login Text (Зображення: {{ img }})
+    <div class="login-container">
+        <div class="left-side">
+            </div>
+
+        <div class="right-side">
+            <div class="top-bar">
+                <span class="top-bar-text">Affiliate Sign In</span>
+                <div class="top-bar-image">
+                    <img src="https://via.placeholder.com/40" alt="Logo" />
+                </div>
+            </div>
+
+            <div class="form-wrapper">
+
+                <form @submit.prevent="handleLogin">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            v-model="email"
+                            required
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            v-model="password"
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" class="btn-login">SIGN IN</button>
+                </form>
+
+            </div>
+        </div>
     </div>
 </template>
 
@@ -14,12 +52,10 @@ export default {
         }
     },
     mounted() {
-        this.img = this.randomIntFromInterval(1, 7);
+        // test
     },
     methods: {
-        randomIntFromInterval(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min)
-        }
+        // test
     }
 }
 </script>

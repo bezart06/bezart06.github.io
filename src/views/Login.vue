@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <msg ref="msg"></msg>
+        <Msg ref="msg"></Msg>
 
         <div class="left-side">
             <img :src="parent.url+'/app/views/images/Cover_'+img+'.jpg'" alt="Background">
@@ -22,7 +22,7 @@
                         <input
                             type="email"
                             id="email"
-                            v-model="parent.formData.email"
+                            v-model="email"
                             required
                         />
                     </div>
@@ -32,7 +32,7 @@
                         <input
                             type="password"
                             id="password"
-                            v-model="parent.formData.password"
+                            v-model="password"
                             required
                             autocomplete="on"
                         />
@@ -48,9 +48,13 @@
 
 <script>
 import axios from 'axios';
+import Msg from '../components/Msg.vue';
 
 export default {
     name: 'Login',
+    components: {
+        Msg
+    },
     data() {
         return {
             img: 1,

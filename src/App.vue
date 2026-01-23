@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import { msg } from './components/msg.js'
+import Msg from './components/Msg.vue'
 
 export default {
     name: 'App',
     components: {
-        Msg: msg
+        Msg
     },
     data() {
         return {

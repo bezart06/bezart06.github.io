@@ -123,34 +123,48 @@ body, html {
 
 .alertMsg {
     font-size: inherit;
-    padding: 20px 0;
+    padding: 12px 24px;
     position: fixed;
     bottom: 5%;
     left: 2%;
-    border-radius: 10px;
+    border-radius: 12px;
     z-index: 999;
     height: auto;
     display: none;
-    color: red;
-    background-color: rgba(255, 228, 228, 0.75);
-    box-shadow: 0px 0 10px 0px rgba(205, 30, 11, 0.5);
-    animation: showFromLeft 0.3s linear;
+
+    color: #d32f2f;
+    font-weight: 500;
+
+    background-color: rgba(255, 225, 228, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+    animation: showFromLeft 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .successMsg {
     font-size: inherit;
-    padding: 20px 0;
+    padding: 12px 24px;
     position: fixed;
     bottom: 5%;
     left: 2%;
-    border-radius: 10px;
+    border-radius: 12px;
     z-index: 999;
     height: auto;
     display: none;
-    color: green;
-    background-color: rgba(218, 249, 223, 0.75);
-    box-shadow: 0px 0 10px 0px rgba(11 205 61 / 50%);
-    animation: showFromLeft 0.3s normal;
+
+    color: #1b5e20;
+    font-weight: 500;
+
+    background: rgba(232, 225, 223, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.2);
+    animation: showFromLeft 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @keyframes showFromLeft {

@@ -1,5 +1,7 @@
 <template>
     <div class="login-container">
+        <msg ref="msg"></msg>
+
         <div class="left-side">
             <img :src="parent.url+'/app/views/images/Cover_'+img+'.jpg'" alt="Background">
         </div>
@@ -8,19 +10,19 @@
             <div class="top-bar">
                 <span class="top-bar-text">Affiliate Sign In</span>
                 <div class="top-bar-image">
-                    <img src="/favicon.ico" alt="Logo" />
+                    <img :src="parent.url+'/app/views/images/logo.svg'" alt="Logo" />
                 </div>
             </div>
 
             <div class="form-wrapper">
 
-                <form @submit.prevent="handleLogin">
+                <form @submit.prevent="handleLogin" v-if="parent.formData">
                     <div class="input-group">
                         <label for="email">Email</label>
                         <input
                             type="email"
                             id="email"
-                            v-model="email"
+                            v-model="parent.formData.email"
                             required
                         />
                     </div>
@@ -30,8 +32,9 @@
                         <input
                             type="password"
                             id="password"
-                            v-model="password"
+                            v-model="parent.formData.password"
                             required
+                            autocomplete="on"
                         />
                     </div>
 

@@ -30,11 +30,11 @@ export default {
         }
     },
     watch: {
-        $route() {
+        $route:function() {
             this.init();
         }
     },
-    mounted() {
+    mounted:function() {
         this.init();
     },
     methods: {
@@ -45,21 +45,32 @@ export default {
             }
         },
         logout() {
-            this.user.auth = "";
-            this.$router.push('/');
+            this.user = {name:"", phone:"", email:"", date:"", auth:""};
+            this.page('/');
+            window.localStorage.setItem('user', '');
         },
         scrollTop() {
-            window.scrollTo(0, 0);
+            setTimeout(function (){
+                window.scroll({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 50);
         },
         scrollBottom() {
-            window.scrollTo(0, document.body.scrollHeight);
+            setTimeout(function(){
+                window.scroll({
+                    top: 1000,
+                    behavior: 'smooth'
+                });
+            }, 50);
         },
-        page(path = "") {
+        page:function (path="") {
             this.$router.replace(path);
-            this.title = this.$route.name;
-            document.title = this.$route.name;
+            this.title = this.$route['name'];
+            document.title = this.$route['name'];
         },
-        toFormData(obj) {
+        toFormData:function(obj) {
             var fd = new FormData();
 
             for (var x in obj) {

@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            url: "",
+            url: "https://affiliate.yanbasok.com",
             user: {
                 name: "",
                 phone: "",

@@ -21,7 +21,7 @@ const routes = [
     {
         path: '/campaigns',
         name: 'Campaigns',
-        component: Placeholder
+        component: Campaigns
     },
     {
         path: '/campaign/:id',

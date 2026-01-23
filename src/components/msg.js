@@ -12,7 +12,7 @@ export const msg = {
     watch: {
     },
     mounted() {
-        // this.parent = this.$parent.$parent.$parent;
+        this.parent = this.$parent.$parent;
     },
     methods: {
         fadeIn(el, timeout, display) {

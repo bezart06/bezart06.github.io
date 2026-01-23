@@ -1,17 +1,17 @@
 <template>
     <div id="app-container">
+        <Msg ref="msg"></Msg>
         <router-view></router-view>
-
     </div>
 </template>
 
 <script>
-// import
+import { msg } from './components/msg.js'
 
 export default {
     name: 'App',
     components: {
-        // ...
+        Msg: msg
     },
     data() {
         return {

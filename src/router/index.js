@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Login from '../views/Login.vue'
-// import Campaigns from '../views/Campaigns.vue'
+import Campaigns from '../views/Campaigns.vue'
 // import Campaign from '../views/Campaign.vue'
 // import Users from '../views/Users.vue'
 // import User from '../views/User.vue'

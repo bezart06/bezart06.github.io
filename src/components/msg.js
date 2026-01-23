@@ -1,18 +1,18 @@
 export const msg = {
     data: function () {
         return {
-            alert:"",
-            success:"",
-            t1:"",
-            t2:"",
-            code:0,
-            interval:""
+            alert: "",
+            success: "",
+            t1: "",
+            t2: "",
+            code: 0,
+            interval: ""
         }
     },
     watch: {
     },
     mounted() {
-        this.parent = this.$parent.$parent.$parent;
+        // this.parent = this.$parent.$parent.$parent;
     },
     methods: {
         fadeIn(el, timeout, display) {

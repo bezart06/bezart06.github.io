@@ -1,12 +1,14 @@
 <template>
     <div id="app-container">
         <Msg ref="msg"></Msg>
+        <Popup ref="popup"></Popup>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
 import Msg from './components/Msg.vue'
+import Popup from "./components/Popup.vue";
 
 export default {
     name: 'App',

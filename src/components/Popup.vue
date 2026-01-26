@@ -17,6 +17,7 @@
 
 <script>
 export default {
+    name: 'Popup',
     props: ['title', 'fullscreen'],
     data() {
         return {

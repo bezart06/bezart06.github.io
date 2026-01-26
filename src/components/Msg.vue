@@ -10,13 +10,11 @@
         </div>
     </div>
     <Popup ref="confirm" :title="confirmTitle">
-        <div class=" al">
             <i class="fas fa-info-circle"></i> {{confirm}}
             <div class="botBtns">
                 <a class="btn5" href="#" @click.prevent="code=1">Yes</a>
                 <a class="btn5" href="#" @click.prevent="code=2">No</a>
             </div>
-        </div>
     </Popup>
 </template>
 

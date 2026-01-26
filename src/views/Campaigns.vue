@@ -151,9 +151,13 @@ export default {
                 var self = this;
                 var data = self.parent.toFormData(self.parent.formData);
 
-                axios.post(this.parent.url+"/site/deleteCampaign?auth="+this.parent.user.auth, data).then(function(response){
-                    self.$refs.header.$refs.msg.successFun("Successfully deleted campaign!");
-                    self.get();
+                axios.post(this.parent.url+"/site/deleteCampaign?auth="+this.parent.user.auth, data).then(function(response) {
+                    if (response.data.error) {
+                        self.$refs.header.$refs.msg.alertFun(response.data.error);
+                    } else {
+                        self.$refs.header.$refs.msg.successFun("Successfully deleted campaign!");
+                        self.get();
+                    }
                 }).catch(function(error){
                     console.log('errors : ', error);
                 });

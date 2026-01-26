@@ -21,8 +21,11 @@
 </template>
 
 <script>
+import Popup from "./Popup.vue";
+
 export default {
     name: 'Msg',
+    components: {Popup},
     data() {
         return {
             alert: "",

@@ -1,5 +1,6 @@
 <template>
     <div class="campaigns">
+        <Header ref="header" />
         <div id="spinner" v-if="loader"></div>
         <div class="wrapper">
             <div class="flex panel">
@@ -74,9 +75,11 @@
 
 <script>
 import axios from "axios";
+import Header from "../components/Header.vue";
 
 export default {
     name: 'Campaigns',
+    components: {Header},
     data:function() {
         return {
             parent: null,

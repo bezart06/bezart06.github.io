@@ -3,6 +3,7 @@
         <Msg ref="msg"></Msg>
         <Popup ref="popup"></Popup>
         <Header ref="header"></Header>
+        <Toogle ref="toogle"></Toogle>
         <router-view></router-view>
     </div>
 </template>
@@ -11,10 +12,12 @@
 import Msg from './components/Msg.vue'
 import Popup from './components/Popup.vue';
 import Header from './components/Header.vue'
+import Toogle from './components/Toogle.vue'
 
 export default {
     name: 'App',
     components: {
+        Toogle,
         Header,
         Popup,
         Msg

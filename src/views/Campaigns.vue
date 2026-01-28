@@ -17,9 +17,25 @@
                         </div>
                     </div>
                     <div class="w20 ar ptb20">
-                        <a class="btnS" href="#" @click.prevent><i class="fas fa-plus"></i> New</a>
+                        <a class="btnS" href="#" @click.prevent="parent.formData={}; $refs.new.active=1"><i class="fas fa-plus"></i> New</a>
                     </div>
                 </div>
+
+                <popup ref="new" :title="(parent.formData && parent.formData.id) ? 'Edit campaign' : 'New campaign'">
+                    <div class="form inner-form">
+                        <form @submit.prevent="action()" v-if="parent.formData">
+                            <div class="row">
+                                <label>Name</label>
+                                <input type="text" v-model="parent.formData.title" required>
+                            </div>
+
+                            <div class="row">
+                                <button class="btn" v-if="parent.formData && parent.formData.id">Edit</button>
+                                <button class="btn" v-if="parent.formData && !parent.formData.id">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </popup>
 
                 <div class="table">
                     <table v-if="data.items && data.items.length">
@@ -39,10 +55,7 @@
                         <tr v-for="item in data.items" :key="item.id">
                             <td class="id">{{ item.id }}</td>
                             <td class="id">
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                <Toogle v-model="item.published" @update:modelValue="parent.formData = item; action();" />
                             </td>
                             <td>
                                 <router-link :to="'/campaign/'+item.id" class="link-title">
@@ -92,10 +105,12 @@
 <script>
 import axios from "axios";
 import Header from "../components/Header.vue";
+import Toogle from "../components/Toogle.vue";
+import Popup from "../components/Popup.vue";
 
 export default {
     name: 'Campaigns',
-    components: {Header},
+    components: {Popup, Toogle, Header},
     data:function() {
         return {
             parent: null,

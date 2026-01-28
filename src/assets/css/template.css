@@ -309,10 +309,14 @@ body, html {
     overflow-y: auto;
 }
 
-.flex { display: flex; width: 100%; }
+.flex { display: flex; width: 100%; align-items: center; flex-wrap: wrap; }
 
 .w80 { width: 80%; }
+.w70 { width: 70%; }
+.w60 { width: 60%; }
 .w20 { width: 20%; }
+.w10 { width: 10%; }
+
 .ptb20 { padding: 20px 0; }
 
 .head-title { font-weight: bold; font-size: 16px; color: #333; }
@@ -340,11 +344,6 @@ body, html {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-
-.flex { display: flex; align-items: center; flex-wrap: wrap; }
-
-.w20 { width: 20%; }
-.w60 { width: 60%; }
 
 .ptb30 { padding: 30px 0; }
 .ptb20 { padding: 20px 0; }

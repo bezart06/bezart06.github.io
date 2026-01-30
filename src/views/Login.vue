@@ -1,101 +1,63 @@
 <template>
     <div class="login-container">
-        <Msg ref="msg"></Msg>
-
-        <div class="left-side">
-            <img :src="parent.url+'/app/views/images/Cover_'+img+'.jpg'" alt="Background">
-        </div>
-
-        <div class="right-side">
-            <div class="top-bar">
-                <span class="top-bar-text">Affiliate Sign In</span>
-                <div class="top-bar-image">
-                    <img :src="parent.url+'/app/views/images/logo.svg'" alt="Logo" />
-                </div>
-            </div>
-
-            <div class="form-wrapper">
-
-                <form @submit.prevent="handleLogin" v-if="parent.formData">
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            v-model="email"
-                            required
-                        />
+        <div class="login-form-wrapper">
+             <div class="form inner-form">
+                <form @submit.prevent="login()">
+                    <h1>Sign in</h1>
+                    <div class="row">
+                        <label>Email</label>
+                        <input type="email" v-model="form.email" required>
                     </div>
-
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            v-model="password"
-                            required
-                            autocomplete="on"
-                        />
+                    <div class="row">
+                        <label>Password</label>
+                        <input type="password" v-model="form.password" required>
                     </div>
-
-                    <button type="submit" class="btn-login">SIGN IN</button>
+                    <div class="row">
+                        <button class="btn">SIGN IN</button>
+                    </div>
                 </form>
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Msg from '../components/Msg.vue';
+import axios from "axios";
 
 export default {
     name: 'Login',
-    components: {
-        Msg
-    },
     data() {
         return {
-            img: 1,
-            parent: { url: '' },
-            email: "",
-            password: ""
+            form: {
+                email: "",
+                password: ""
+            },
+            parent: null
         }
     },
-    mounted:function() {
-        this.img = this.randomIntFromInterval(1,7);
+    mounted() {
         this.parent = this.$root;
+        if(this.parent.user && this.parent.user.auth) {
+            this.$router.push('/campaigns');
+        }
     },
     methods: {
-        randomIntFromInterval:function (min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        },
-        handleLogin() {
-            this.parent.formData = {
-                email: this.email,
-                password: this.password
-            };
-
+        login() {
             var self = this;
-            var data = self.parent.toFormData(self.parent.formData);
+            var data = self.parent.toFormData(self.form);
 
-            axios.post(self.parent.url + "/site/login", data).then(function (response) {
+            axios.post(this.parent.url + "/site/login", data).then(function(response) {
                 if (response.data.error) {
-                    if (self.$refs.msg) {
-                        self.$refs.msg.alertFun(response.data.error);
-                    } else {
-                        console.error("Помилка:", response.data.error);
-                        alert(response.data.error);
-                    }
-                }
-                if (response.data.user) {
-                    self.parent.user = response.data.user;
-                    self.parent.page('/campaigns');
+                    self.parent.$refs.msg.alertFun(response.data.error);
+                } else {
+                    self.parent.user = response.data;
+
                     window.localStorage.setItem('user', JSON.stringify(self.parent.user));
+
+                    self.$router.push('/campaigns');
                 }
-            }).catch(function (error) {
-                console.log('errors : ', error);
+            }).catch(function(error) {
+                console.log(error);
             });
         }
     }

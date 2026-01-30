@@ -1,6 +1,5 @@
 <template>
     <div class="campaigns-container">
-        <Header ref="header"></Header>
         <div id="spinner" v-if="loader"></div>
 
         <div class="inside-content">
@@ -38,7 +37,7 @@
                 </popup>
 
                 <div class="table">
-                    <table v-if="data.items && data.items.length">
+                    <table v-if="data && data.items && data.items.length">
                         <thead>
                         <tr>
                             <th class="id">#</th>
@@ -104,13 +103,13 @@
 
 <script>
 import axios from "axios";
-import Header from "../components/Header.vue";
+// Header
 import Toogle from "../components/Toogle.vue";
 import Popup from "../components/Popup.vue";
 
 export default {
     name: 'Campaigns',
-    components: {Popup, Toogle, Header},
+    components: {Popup, Toogle},
     data:function() {
         return {
             parent: null,
@@ -128,8 +127,8 @@ export default {
     },
     mounted() {
         this.parent = this.$root;
-        this.get();
         this.GetFirstAndLastDate();
+        this.get();
     },
     methods:{
         GetFirstAndLastDate:function(){
@@ -143,28 +142,35 @@ export default {
         },
         get:function(){
             var self = this;
+            if (!self.parent || !self.parent.formData) return;
+
             var data = self.parent.toFormData(self.parent.formData);
             if(this.date!="") data.append('date', this.date);
             if(this.date2!="") data.append('date2', this.date2);
             self.loader=1;
-            axios.post(this.parent.url+"/site/getCampaigns?auth="+this.parent.user.auth, data).then(function(response){
+
+            var auth = (this.parent.user && this.parent.user.auth) ? this.parent.user.auth : "";
+
+            axios.post(this.parent.url+"/site/getCampaigns?auth="+auth, data).then(function(response){
                 self.data = response.data;
                 self.loader = 0;
             }).catch(function(error){
-                self.parent.logout();
+                console.log(error);
+                if (!auth) self.parent.logout();
             });
         },
         action:function(){
             var self = this;
             self.parent.formData.copy = "";
             var data = self.parent.toFormData(self.parent.formData);
+            var auth = (this.parent.user && this.parent.user.auth) ? this.parent.user.auth : "";
 
-            axios.post(this.parent.url+"/site/actionCampaigns?auth="+this.parent.user.auth, data).then(function(response){
+            axios.post(this.parent.url+"/site/actionCampaigns?auth="+auth, data).then(function(response){
                 self.$refs.new.active = 0;
                 if(self.parent.formData.id){
-                    self.$refs.header.$refs.msg.successFun("Successfully updated campaign!");
+                    self.parent.$refs.msg.successFun("Successfully updated campaign!");
                 } else {
-                    self.$refs.header.$refs.msg.successFun("Successfully added new campaign!");
+                    self.parent.$refs.msg.successFun("Successfully added new campaign!");
                 }
 
                 self.get();
@@ -173,15 +179,16 @@ export default {
             });
         },
         del:async function(){
-            if(await this.$refs.header.$refs.msg.confirmFun("", "Do you want to delete this campaign?")){
+            if(await this.parent.$refs.msg.confirmFun("", "Do you want to delete this campaign?")){
                 var self = this;
                 var data = self.parent.toFormData(self.parent.formData);
+                var auth = (this.parent.user && this.parent.user.auth) ? this.parent.user.auth : "";
 
-                axios.post(this.parent.url+"/site/deleteCampaign?auth="+this.parent.user.auth, data).then(function(response) {
+                axios.post(this.parent.url+"/site/deleteCampaign?auth="+auth, data).then(function(response) {
                     if (response.data.error) {
-                        self.$refs.header.$refs.msg.alertFun(response.data.error);
+                        self.parent.$refs.msg.alertFun(response.data.error);
                     } else {
-                        self.$refs.header.$refs.msg.successFun("Successfully deleted campaign!");
+                        self.parent.$refs.msg.successFun("Successfully deleted campaign!");
                         self.get();
                     }
                 }).catch(function(error){

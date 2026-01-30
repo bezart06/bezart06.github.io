@@ -2,8 +2,7 @@
     <div id="app-container">
         <Msg ref="msg"></Msg>
         <Popup ref="popup"></Popup>
-        <Header ref="header"></Header>
-        <Toogle ref="toogle"></Toogle>
+        <Header ref="header" v-if="$route.path !== '/'"></Header>
         <router-view></router-view>
     </div>
 </template>
@@ -12,12 +11,10 @@
 import Msg from './components/Msg.vue'
 import Popup from './components/Popup.vue';
 import Header from './components/Header.vue'
-import Toogle from './components/Toogle.vue'
 
 export default {
     name: 'App',
     components: {
-        Toogle,
         Header,
         Popup,
         Msg
@@ -44,6 +41,14 @@ export default {
         }
     },
     mounted:function() {
+        var user = window.localStorage.getItem('user');
+        if (user) {
+            try {
+                this.user = JSON.parse(user);
+            } catch (e) {
+                console.error("Помилка читання user з localStorage", e);
+            }
+        }
         this.init();
     },
     methods: {
@@ -55,8 +60,8 @@ export default {
         },
         logout() {
             this.user = {name:"", phone:"", email:"", date:"", auth:""};
+            window.localStorage.removeItem('user');
             this.page('/');
-            window.localStorage.setItem('user', '');
         },
         scrollTop() {
             setTimeout(function (){
@@ -76,8 +81,6 @@ export default {
         },
         page:function (path="") {
             this.$router.replace(path);
-            this.title = this.$route['name'];
-            document.title = this.$route['name'];
         },
         toFormData:function(obj) {
             var fd = new FormData();

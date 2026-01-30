@@ -3,7 +3,7 @@
         <div class="wrapper">
             <div class="flex">
                 <div class="w20 logo">
-                    <img :src="parent.url+'/app/views/images/logo.svg'" alt="Logo" />
+                    <img v-if="parent.url" :src="parent.url+'/app/views/images/logo.svg'" alt="Logo" />
                 </div>
                 <div class="w70">
                     <div id="menu">
@@ -45,7 +45,7 @@ export default {
     data: function() {
         return {
             user: {},
-            parent: "",
+            parent: {},
             active: 0,
             menu: 0
         }
@@ -53,7 +53,7 @@ export default {
     watch: {
     },
     mounted() {
-        this.parent = this.parent.parent;
+        this.parent = this.$root;
     },
     methods: {
         toogleActive(){

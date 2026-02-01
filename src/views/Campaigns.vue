@@ -17,9 +17,33 @@
                         </div>
                     </div>
                     <div class="w20 ar ptb20">
-                        <a class="btnS" href="#" @click.prevent><i class="fas fa-plus"></i> New</a>
+                        <a class="btnS" href="#" @click.prevent="parent.formData={}; $refs.new.active=1"><i class="fas fa-plus"></i> New</a>
                     </div>
                 </div>
+
+                <Popup ref="new" :title="(parent && parent.formData && parent.formData.id) ? 'Edit campaign' : 'New campaign'">
+                    <div class="popup-form">
+                        <form @submit.prevent="action()" v-if="parent && parent.formData">
+
+                            <div class="input-group">
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    v-model="parent.formData.title"
+                                    required
+                                >
+                            </div>
+
+                            <div class="botBtns">
+                                <button class="btnS">
+                                    <i class="fas" :class="(parent && parent.formData.id) ? 'fa-save' : 'fa-plus'"></i>
+                                    {{ (parent && parent.formData.id) ? 'Edit' : 'Add' }}
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </Popup>
 
                 <div class="table">
                     <table v-if="data.items && data.items.length">
@@ -39,10 +63,10 @@
                         <tr v-for="item in data.items" :key="item.id">
                             <td class="id">{{ item.id }}</td>
                             <td class="id">
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                <Toggle
+                                    v-model="item.status"
+                                    @change="saveStatus(item)"
+                                />
                             </td>
                             <td>
                                 <router-link :to="'/campaign/'+item.id" class="link-title">
@@ -92,10 +116,12 @@
 <script>
 import axios from "axios";
 import Header from "../components/Header.vue";
+import Popup from "../components/Popup.vue";
+import Toggle from "../components/Toogle.vue";
 
 export default {
     name: 'Campaigns',
-    components: {Header},
+    components: {Header, Popup, Toggle},
     data:function() {
         return {
             parent: null,
@@ -128,18 +154,22 @@ export default {
         },
         get:function(){
             var self = this;
-            var data = self.parent.toFormData(self.parent.formData);
-            if(this.date!="") data.append('date', this.date);
-            if(this.date2!="") data.append('date2', this.date2);
-            self.loader=1;
-            axios.post(this.parent.url+"/site/getCampaigns?auth="+this.parent.user.auth, data).then(function(response){
-                self.data = response.data;
-                self.loader = 0;
-            }).catch(function(error){
-                self.parent.logout();
-            });
+            var data = self.parent.toFormData({});
+
+            if (this.date != "") data.append('date', this.date);
+            if (this.date2 != "") data.append('date2', this.date2);
+            self.loader = 1;
+
+            axios.post(this.parent.url + "/site/getCampaigns?auth=" + this.parent.user.auth, data)
+                .then(function(response) {
+                    self.data = response.data;
+                    self.loader = 0;
+                })
+                .catch(function(error) {
+                    self.parent.logout();
+                });
         },
-        action:function(){
+        action: function() {
             var self = this;
             self.parent.formData.copy = "";
             var data = self.parent.toFormData(self.parent.formData);

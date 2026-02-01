@@ -1,21 +1,27 @@
 <template>
-    <div class="alertMsg" v-if="alert">
-        <div class="wrapper al">
-            <i class="fas fa-times-circle"></i> {{alert}}
-        </div>
-    </div>
-    <div class="successMsg" v-if="success">
-        <div class="wrapper al">
-            <i class="fas fa-check-circle"></i> {{success}}
-        </div>
-    </div>
-    <Popup ref="confirm" :title="confirmTitle">
-            <i class="fas fa-info-circle"></i> {{confirm}}
-            <div class="botBtns">
-                <a class="btn5" href="#" @click.prevent="code=1">Yes</a>
-                <a class="btn5" href="#" @click.prevent="code=2">No</a>
+    <div class="msg-wrapper">
+        <div class="alertMsg" v-if="alert">
+            <div class="wrapper al">
+                <i class="fas fa-times-circle"></i> {{ alert }}
             </div>
-    </Popup>
+        </div>
+
+        <div class="successMsg" v-if="success">
+            <div class="wrapper al">
+                <i class="fas fa-check-circle"></i> {{ success }}
+            </div>
+        </div>
+
+        <Popup ref="confirm" :title="confirmTitle">
+            <div class="confirm-content">
+                <i class="fas fa-info-circle"></i> {{ confirm }}
+            </div>
+            <div class="botBtns">
+                <a class="btnS" href="#" @click.prevent="code=1">Yes</a>
+                <a class="btnS" href="#" @click.prevent="code=2">No</a>
+            </div>
+        </Popup>
+    </div>
 </template>
 
 <script>
@@ -29,14 +35,19 @@ export default {
             alert: "",
             success: "",
             t1: null,
-            t2: null
+            t2: null,
+            confirmTitle: "",
+            confirm: "",
+            code: 0,
+            interval: null,
+            parent: null
         }
     },
     watch: {
     },
     mounted() {
-        if (this.$parent && this.$parent.$parent) {
-            this.parent = this.$parent.$parent;
+        if (this.$parent) {
+            this.parent = this.$parent;
         }
     },
     methods: {
@@ -59,12 +70,12 @@ export default {
             }, timeout);
         },
 
-        successFun(msg){
+        successFun(msg) {
             this.success = msg;
             var self = this;
 
             this.$nextTick(() => {
-                const block = self.$el.querySelector('.successMsg') || document.querySelector('.successMsg');
+                const block = self.$el.querySelector('.successMsg');
                 if (block) {
                     block.style.display = 'none';
                     block.style.opacity = '0';
@@ -72,9 +83,9 @@ export default {
                     clearTimeout(self.t1);
                     clearTimeout(self.t2);
 
-                    self.t1 = setTimeout(function (){
+                    self.t1 = setTimeout(function () {
                         self.fadeIn(block, 1000, 'flex');
-                        self.t2 = setTimeout(function (){
+                        self.t2 = setTimeout(function () {
                             self.fadeOut(block, 1000);
                         }, 3000);
                     }, 100);
@@ -82,47 +93,55 @@ export default {
             });
         },
 
-        alertFun(msg){
+        alertFun(msg) {
             this.alert = msg;
             var self = this;
 
             this.$nextTick(() => {
-                const block = document.querySelector('.alertMsg');
+                const block = self.$el.querySelector('.alertMsg');
 
                 if (block) {
-                    block.style = "";
+                    block.style.display = 'none';
+                    block.style.opacity = '0';
 
                     clearTimeout(self.t1);
                     clearTimeout(self.t2);
 
-                    self.t1 = setTimeout(function (){
+                    self.t1 = setTimeout(function () {
                         self.fadeIn(block, 1000, 'flex');
-                        self.t2 = setTimeout(function (){
+                        self.t2 = setTimeout(function () {
                             self.fadeOut(block, 1000);
                         }, 3000);
                     }, 100);
                 }
             });
         },
-        confirmFun(title, text){
+
+        confirmFun(title, text) {
             this.code = 0;
             var self = this;
 
-            return new Promise(function(resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 self.confirmTitle = title;
                 self.confirm = text;
-                self.$refs.confirm.active=1;
-                self.interval = setInterval(function (){
-                    if(self.code > 0) resolve();
+                if (self.$refs.confirm) {
+                    self.$refs.confirm.active = 1;
+                }
+
+                self.interval = setInterval(function () {
+                    if (self.code > 0) resolve();
                 }, 100);
 
-            }).then(function(){
+            }).then(function () {
                 clearInterval(self.interval);
-                self.$refs.confirm.active = 0;
-                if(self.code == 1){
+                if (self.$refs.confirm) {
+                    self.$refs.confirm.active = 0;
+                }
+
+                if (self.code == 1) {
                     return true;
                 }
-                if(self.code == 2){
+                if (self.code == 2) {
                     return false;
                 }
             });

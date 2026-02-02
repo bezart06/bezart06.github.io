@@ -704,3 +704,9 @@ input:checked + .slider:before { transform: translateX(14px); }
 .mobile-bars {
     color: #fff;
 }
+
+.header .wrapper {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}

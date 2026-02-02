@@ -97,6 +97,12 @@
                                 </a>
                             </td>
                             <td class="actions">
+                                <router-link :to="'/campaign/'+item.id">
+                                    <i class="fas fa-edit"></i>
+                                </router-link>
+                                <a href="#" @click.prevent="parent.formData = item; iChart = i; $refs.chart.active = 1; line(item)">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
                                 <a href="#" @click.prevent="parent.formData = item; del();">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
@@ -118,6 +124,7 @@ import axios from "axios";
 import Header from "../components/Header.vue";
 import Popup from "../components/Popup.vue";
 import Toggle from "../components/Toogle.vue";
+import {Chart} from "chart.js";
 
 export default {
     name: 'Campaigns',
@@ -132,6 +139,7 @@ export default {
             q:"",
             sort:"",
             loader:1,
+            iChart:-1,
             id:0,
             type:0,
             all:true
@@ -203,7 +211,111 @@ export default {
                     console.log('errors : ', error);
                 });
             }
+        },
+        line:function(item){
+            setTimeout(function(){
+                let dates = [];
+                let clicks = [];
+                let views = [];
+                let leads = [];
+                if(item && item['line']){
+                    for(let i in item['line']){
+                        dates.push(i);
+                        //if(item[i].include=='true'){
+                        clicks.push(item['line'][i].clicks);
+                        views.push(item['line'][i].views);
+                        leads.push(item['line'][i].leads);
+                        //}
+                    }
+                }
+                //console.log(clicks,views);
+
+                document.getElementById('chartOuter').innerHTML =
+                    '<div id="chartHints"><div class="chartHintsViews">Views</div>' +
+                    '<div class="chartHintsClicks">Clicks</div></div><canvas id="myChart"></canvas>';
+                const ctx = document.getElementById('myChart');
+                const xScaleImage = {
+                    id:"xScaleImage",
+                    afterDatasetsDraw(chart,args,plugins){
+                        const {ctx,data, chartArea:{bottom}, scales:{x}} = chart;
+                        ctx.save();
+                        data.images.forEach((image,index) => {
+                            const label = new Image();
+                            label.src = image;
+
+                            const width = 120;
+                            ctx.drawImage(label,x.getPixelForValue(index)-(width/2 ),x.top,width,width);
+                        });
+                    }
+                }
+                new Chart(ctx, {
+                    type: 'line',
+                    //plugins:[xScaleImage],
+
+                    data: {
+                        labels: dates,
+                        //images:images,
+                        datasets: [
+                            {
+                                label: "Clicks",
+                                backgroundColor: "#00599D",
+                                borderColor: "#00599D",
+                                data: clicks
+                            },
+                            {
+                                label: "Views",
+                                backgroundColor: "#5000B8",
+                                borderColor: "#5000B8",
+                                data: views,
+                                //yAxisID: 'y2'
+                            },
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins:{
+                            tooltip: {
+                                bodyFontSize: 20,
+                                usePointStyle:true,
+                                callbacks: {
+                                    title: (ctx) => {
+                                        return ctx[0]['dataset'].label
+                                    },
+                                }
+                            },
+                            legend:{
+                                display:false
+                            }
+                        },
+                        categoryPercentage :0.2,
+                        barPercentage: 0.8,
+                        //barThickness: 30,
+                        scales:{
+                            y: {
+                                id: 'y2',
+                                position: 'right'
+                            },
+                            x:{
+                                afterFit: (scale) => {
+                                    scale.height = 120;
+                                }
+                            }
+                        }
+                    },
+
+                });
+            },100);
+        },
+        checkAll:function(prop){
+            if(this.parent.formData.sites){
+                for(let i in this.parent.formData.sites){
+                    this.parent.formData.sites[i].include = prop;
+
+                }
+            }
+            //this.parent.formData.sites = this.data.items[this.iChart];
+            this.getCampaignChart();
         }
-    }
+    },
 };
 </script>

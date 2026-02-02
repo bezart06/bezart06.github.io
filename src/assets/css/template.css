@@ -226,8 +226,26 @@ body, html {
 }
 
 .header{
-    background-color: #434242;
+    background-color: #3a3a3a;
     text-align: center;
+    color: #ecf0f1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.header a:hover,
+.header a.active-link {
+    color: #11de79;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
 #spinner{
@@ -665,4 +683,24 @@ input:checked + .slider:before { transform: translateX(14px); }
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
+}
+
+#user-info {
+    background-color: #34495e;
+    border: 1px solid #2c3e50;
+    color: #fff;
+}
+
+#user-info a {
+    color: #ecf0f1;
+    border-bottom: 1px solid #2c3e50;
+}
+
+#user-info a:hover {
+    background-color: #2c3e50;
+    color: #11de79;
+}
+
+.mobile-bars {
+    color: #fff;
 }

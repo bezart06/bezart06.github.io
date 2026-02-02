@@ -2,7 +2,6 @@
     <div id="app-container">
         <Msg ref="msg"></Msg>
         <Popup ref="popup"></Popup>
-        <Header ref="header"></Header>
         <router-view></router-view>
     </div>
 </template>
@@ -10,12 +9,10 @@
 <script>
 import Msg from './components/Msg.vue'
 import Popup from './components/Popup.vue';
-import Header from './components/Header.vue'
 
 export default {
     name: 'App',
     components: {
-        Header,
         Popup,
         Msg
     },

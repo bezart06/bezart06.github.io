@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="w10 al" v-else>
-                    <router-link to="/" style="color:#fff; text-decoration:none;">
+                    <router-link to="/" style="color:#000; text-decoration:none;">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </router-link>
                 </div>

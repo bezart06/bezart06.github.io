@@ -12,8 +12,8 @@
                     <div id="menu">
                         <i class="fas fa-bars mobile-bars" @click="menu = 1"></i>
 
-                        <ul :class="{active: menu == 1}" v-if="parent.user && parent.user.auth == 'admin'">
-                            <li v-if="menu == 1" class="al close-menu">
+                        <ul :class="{active: menu === 1}" v-if="parent.user && parent.user.auth === 'admin'">
+                            <li v-if="menu === 1" class="al close-menu">
                                 <i class="fas fa-times" @click="menu = 0"></i>
                             </li>
                             <li>
@@ -28,8 +28,8 @@
                             </li>
                         </ul>
 
-                        <ul :class="{active: menu == 1}" v-else>
-                            <li v-if="menu == 1" class="al close-menu">
+                        <ul :class="{active: menu === 1}" v-else>
+                            <li v-if="menu === 1" class="al close-menu">
                                 <i class="fas fa-times" @click="menu = 0"></i>
                             </li>
                             <li>
@@ -61,7 +61,7 @@
                         {{ parent.user.name[0] }}
                     </div>
 
-                    <div id="user-info" :class="{active: active == 1}">
+                    <div id="user-info" :class="{active: active === 1}">
                         <a href="#" @click.prevent="parent.logout()">
                             <i class="fas fa-sign-out-alt"></i>
                             {{ parent.user.name }} Log out

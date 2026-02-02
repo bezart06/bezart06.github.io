@@ -138,10 +138,10 @@ export default {
                     self.$refs.confirm.active = 0;
                 }
 
-                if (self.code == 1) {
+                if (self.code === 1) {
                     return true;
                 }
-                if (self.code == 2) {
+                if (self.code === 2) {
                     return false;
                 }
             });

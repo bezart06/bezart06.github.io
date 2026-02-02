@@ -60,7 +60,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="item in data.items" :key="item.id">
+                        <tr v-for="(item, i) in data.items" :key="item.id">
                             <td class="id">{{ item.id }}</td>
                             <td class="id">
                                 <Toggle
@@ -150,8 +150,8 @@
                         <div class="flex body">
                             <div class="w30 ar filchart">
                                 <div class="itemchart ptb10" v-if="all">
-                                    <span>All</span>
                                     <Toggle v-model="all" @update:modelValue="all = $event; checkAll($event)" />
+                                    All
                                 </div>
                                 <div class="itemchart ptb10" v-if="data.items[iChart].sites" v-for="s in data.items[iChart].sites">
                                     <Toggle v-model="s.include" @update:modelValue="s.include = $event; parent.formData = data.items[iChart]; get()" />
@@ -207,7 +207,7 @@ export default {
         this.GetFirstAndLastDate();
     },
     methods:{
-        GetFirstAndLastDate:function(){
+        GetFirstAndLastDate: function() {
             var year = new Date().getFullYear();
             var month = new Date().getMonth();
             var firstDayOfMonth = new Date(year, month, 2);
@@ -216,18 +216,22 @@ export default {
             this.date = firstDayOfMonth.toISOString().substring(0, 10);
             this.date2 = lastDayOfMonth.toISOString().substring(0, 10);
         },
-        get:function(){
+        get: function() {
             var self = this;
             var data = self.parent.toFormData({});
 
-            if (this.date != "") data.append('date', this.date);
-            if (this.date2 != "") data.append('date2', this.date2);
+            if (this.date !== "") data.append('date', this.date);
+            if (this.date2 !== "") data.append('date2', this.date2);
             self.loader = 1;
 
             axios.post(this.parent.url + "/site/getCampaigns?auth=" + this.parent.user.auth, data)
                 .then(function(response) {
                     self.data = response.data;
                     self.loader = 0;
+
+                    if (self.iChart !== -1 && self.data.items && self.data.items[self.iChart]) {
+                        self.line(self.data.items[self.iChart]);
+                    }
                 })
                 .catch(function(error) {
                     self.parent.logout();

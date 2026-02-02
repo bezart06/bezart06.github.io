@@ -77,7 +77,7 @@ export default {
             var fd = new FormData();
 
             for (var x in obj) {
-                if (typeof obj[x] === 'object' && x != 'img' && x != 'copy') {
+                if (typeof obj[x] === 'object' && x !== 'img' && x !== 'copy') {
                     for (var y in obj[x]) {
                         if (typeof obj[x][y] === 'object') {
                             for (var z in obj[x][y]) {
@@ -87,7 +87,7 @@ export default {
                             fd.append(x + '[' + y + ']', obj[x][y]);
                         }
                     }
-                } else if (x != 'copy') {
+                } else if (x !== 'copy') {
                     fd.append(x, obj[x]);
                 }
             }

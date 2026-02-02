@@ -1,5 +1,5 @@
 <template>
-    <div v-if="active==1" class="popup-wrapper">
+    <div v-if="active===1" class="popup-wrapper">
         <div class="popup-back" @click="active=0"></div>
         <div class="popup" :class="{ 'fullscreen': fullscreen }">
             <div class="flex head-popup">

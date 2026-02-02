@@ -11,17 +11,19 @@
                     </div>
                     <div class="w60 ptb20 ac">
                         <div class="date-range">
-                            <input type="date" v-model="date" @change="get()" />
+                            <input type="date" v-model="date" @change="get()"/>
                             <span>-</span>
-                            <input type="date" v-model="date2" @change="get()" />
+                            <input type="date" v-model="date2" @change="get()"/>
                         </div>
                     </div>
                     <div class="w20 ar ptb20">
-                        <a class="btnS" href="#" @click.prevent="parent.formData={}; $refs.new.active=1"><i class="fas fa-plus"></i> New</a>
+                        <a class="btnS" href="#" @click.prevent="parent.formData={}; $refs.new.active=1"><i
+                            class="fas fa-plus"></i> New</a>
                     </div>
                 </div>
 
-                <Popup ref="new" :title="(parent && parent.formData && parent.formData.id) ? 'Edit campaign' : 'New campaign'">
+                <Popup ref="new"
+                       :title="(parent && parent.formData && parent.formData.id) ? 'Edit campaign' : 'New campaign'">
                     <div class="popup-form">
                         <form @submit.prevent="action()" v-if="parent && parent.formData">
 
@@ -75,24 +77,24 @@
                             </td>
                             <td class="id">
                                 <a href="#" @click.prevent="$refs.details.active=1; getDetails(item.id, 1)">
-                                    {{item.views}}
+                                    {{ item.views }}
                                 </a>
                             </td>
                             <td class="id">
                                 <a href="#" @click.prevent="$refs.details.active=1; getDetails(item.id, 2)">
-                                    <template v-if="item.clicks">{{item.clicks}}</template>
+                                    <template v-if="item.clicks">{{ item.clicks }}</template>
                                     <template v-if="!item.clicks">0</template>
                                 </a>
                             </td>
                             <td class="id">
                                 <a href="#" @click.prevent="$refs.details.active=1; getDetails(item.id, 3)">
-                                    <template v-if="item.leads">{{item.leads}}</template>
+                                    <template v-if="item.leads">{{ item.leads }}</template>
                                     <template v-if="!item.leads">0</template>
                                 </a>
                             </td>
                             <td class="id">
                                 <a href="#" @click.prevent="$refs.details.active=1; getDetails(item.id, 4)">
-                                    <template v-if="item.fclicks">{{item.fclicks}}</template>
+                                    <template v-if="item.fclicks">{{ item.fclicks }}</template>
                                     <template v-if="!item.fclicks">0</template>
                                 </a>
                             </td>
@@ -100,7 +102,8 @@
                                 <router-link :to="'/campaign/'+item.id">
                                     <i class="fas fa-edit"></i>
                                 </router-link>
-                                <a href="#" @click.prevent="parent.formData = item; iChart = i; $refs.chart.active = 1; line(item)">
+                                <a href="#"
+                                   @click.prevent="parent.formData = item; iChart = i; $refs.chart.active = 1; line(item)">
                                     <i class="fas fa-chart-bar"></i>
                                 </a>
                                 <a href="#" @click.prevent="parent.formData = item; del();">
@@ -120,9 +123,9 @@
                         <div class="flex panel">
                             <div class="w30 ptb25">
                                 <div class="date-range">
-                                    <input type="date" v-model="date" @change="get()" />
+                                    <input type="date" v-model="date" @change="get()"/>
                                     <span>-</span>
-                                    <input type="date" v-model="date2" @change="get()" />
+                                    <input type="date" v-model="date2" @change="get()"/>
                                 </div>
                             </div>
                             <div class="w70 al">
@@ -141,7 +144,7 @@
                                     </div>
                                     <div class="ctr">
                                         <div>CTR</div>
-                                        {{(data.items[iChart].clicks*100/data.items[iChart].views).toFixed(2)}} %
+                                        {{ (data.items[iChart].clicks * 100 / data.items[iChart].views).toFixed(2) }} %
                                     </div>
                                 </div>
                             </div>
@@ -150,12 +153,14 @@
                         <div class="flex body">
                             <div class="w30 ar filchart">
                                 <div class="itemchart ptb10" v-if="all">
-                                    <Toggle v-model="all" @update:modelValue="all = $event; checkAll($event)" />
+                                    <Toggle v-model="all" @update:modelValue="all = $event; checkAll($event)"/>
                                     All
                                 </div>
-                                <div class="itemchart ptb10" v-if="data.items[iChart].sites" v-for="s in data.items[iChart].sites">
-                                    <Toggle v-model="s.include" @update:modelValue="s.include = $event; parent.formData = data.items[iChart]; get()" />
-                                    {{s.site}}
+                                <div class="itemchart ptb10" v-if="data.items[iChart].sites"
+                                     v-for="s in data.items[iChart].sites">
+                                    <Toggle v-model="s.include"
+                                            @update:modelValue="s.include = $event; parent.formData = data.items[iChart]; get()"/>
+                                    {{ s.site }}
                                 </div>
                             </div>
 
@@ -185,20 +190,20 @@ import {Chart} from "chart.js";
 export default {
     name: 'Campaigns',
     components: {Header, Popup, Toggle},
-    data:function() {
+    data: function () {
         return {
             parent: null,
-            data:{},
-            details:{},
-            date:"",
-            date2:"",
-            q:"",
-            sort:"",
-            loader:1,
-            iChart:-1,
-            id:0,
-            type:0,
-            all:true
+            data: {},
+            details: {},
+            date: "",
+            date2: "",
+            q: "",
+            sort: "",
+            loader: 1,
+            iChart: -1,
+            id: 0,
+            type: 0,
+            all: true
         }
     },
     mounted() {
@@ -206,8 +211,8 @@ export default {
         this.get();
         this.GetFirstAndLastDate();
     },
-    methods:{
-        GetFirstAndLastDate: function() {
+    methods: {
+        GetFirstAndLastDate: function () {
             var year = new Date().getFullYear();
             var month = new Date().getMonth();
             var firstDayOfMonth = new Date(year, month, 2);
@@ -216,7 +221,7 @@ export default {
             this.date = firstDayOfMonth.toISOString().substring(0, 10);
             this.date2 = lastDayOfMonth.toISOString().substring(0, 10);
         },
-        get: function() {
+        get: function () {
             var self = this;
             var data = self.parent.toFormData({});
 
@@ -225,7 +230,7 @@ export default {
             self.loader = 1;
 
             axios.post(this.parent.url + "/site/getCampaigns?auth=" + this.parent.user.auth, data)
-                .then(function(response) {
+                .then(function (response) {
                     self.data = response.data;
                     self.loader = 0;
 
@@ -233,53 +238,53 @@ export default {
                         self.line(self.data.items[self.iChart]);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     self.parent.logout();
                 });
         },
-        action: function() {
+        action: function () {
             var self = this;
             self.parent.formData.copy = "";
             var data = self.parent.toFormData(self.parent.formData);
 
-            axios.post(this.parent.url+"/site/actionCampaigns?auth="+this.parent.user.auth, data).then(function(response){
+            axios.post(this.parent.url + "/site/actionCampaigns?auth=" + this.parent.user.auth, data).then(function (response) {
                 self.$refs.new.active = 0;
-                if(self.parent.formData.id){
+                if (self.parent.formData.id) {
                     self.$refs.header.$refs.msg.successFun("Successfully updated campaign!");
                 } else {
                     self.$refs.header.$refs.msg.successFun("Successfully added new campaign!");
                 }
 
                 self.get();
-            }).catch(function(error){
+            }).catch(function (error) {
                 console.log('errors : ', error);
             });
         },
-        del:async function(){
-            if(await this.$refs.header.$refs.msg.confirmFun("", "Do you want to delete this campaign?")){
+        del: async function () {
+            if (await this.$refs.header.$refs.msg.confirmFun("", "Do you want to delete this campaign?")) {
                 var self = this;
                 var data = self.parent.toFormData(self.parent.formData);
 
-                axios.post(this.parent.url+"/site/deleteCampaign?auth="+this.parent.user.auth, data).then(function(response) {
+                axios.post(this.parent.url + "/site/deleteCampaign?auth=" + this.parent.user.auth, data).then(function (response) {
                     if (response.data.error) {
                         self.$refs.header.$refs.msg.alertFun(response.data.error);
                     } else {
                         self.$refs.header.$refs.msg.successFun("Successfully deleted campaign!");
                         self.get();
                     }
-                }).catch(function(error){
+                }).catch(function (error) {
                     console.log('errors : ', error);
                 });
             }
         },
-        line:function(item){
-            setTimeout(function(){
+        line: function (item) {
+            setTimeout(function () {
                 let dates = [];
                 let clicks = [];
                 let views = [];
                 let leads = [];
-                if(item && item['line']){
-                    for(let i in item['line']){
+                if (item && item['line']) {
+                    for (let i in item['line']) {
                         dates.push(i);
                         //if(item[i].include=='true'){
                         clicks.push(item['line'][i].clicks);
@@ -295,16 +300,16 @@ export default {
                     '<div class="chartHintsClicks">Clicks</div></div><canvas id="myChart"></canvas>';
                 const ctx = document.getElementById('myChart');
                 const xScaleImage = {
-                    id:"xScaleImage",
-                    afterDatasetsDraw(chart,args,plugins){
-                        const {ctx,data, chartArea:{bottom}, scales:{x}} = chart;
+                    id: "xScaleImage",
+                    afterDatasetsDraw(chart, args, plugins) {
+                        const {ctx, data, chartArea: {bottom}, scales: {x}} = chart;
                         ctx.save();
-                        data.images.forEach((image,index) => {
+                        data.images.forEach((image, index) => {
                             const label = new Image();
                             label.src = image;
 
                             const width = 120;
-                            ctx.drawImage(label,x.getPixelForValue(index)-(width/2 ),x.top,width,width);
+                            ctx.drawImage(label, x.getPixelForValue(index) - (width / 2), x.top, width, width);
                         });
                     }
                 }
@@ -333,29 +338,29 @@ export default {
                     },
                     options: {
                         responsive: true,
-                        plugins:{
+                        plugins: {
                             tooltip: {
                                 bodyFontSize: 20,
-                                usePointStyle:true,
+                                usePointStyle: true,
                                 callbacks: {
                                     title: (ctx) => {
                                         return ctx[0]['dataset'].label
                                     },
                                 }
                             },
-                            legend:{
-                                display:false
+                            legend: {
+                                display: false
                             }
                         },
-                        categoryPercentage :0.2,
+                        categoryPercentage: 0.2,
                         barPercentage: 0.8,
                         //barThickness: 30,
-                        scales:{
+                        scales: {
                             y: {
                                 id: 'y2',
                                 position: 'right'
                             },
-                            x:{
+                            x: {
                                 afterFit: (scale) => {
                                     scale.height = 120;
                                 }
@@ -364,11 +369,11 @@ export default {
                     },
 
                 });
-            },100);
+            }, 100);
         },
-        checkAll:function(prop){
-            if(this.data.items[this.iChart].sites){
-                for(let i in this.data.items[this.iChart].sites){
+        checkAll: function (prop) {
+            if (this.data.items[this.iChart].sites) {
+                for (let i in this.data.items[this.iChart].sites) {
                     this.data.items[this.iChart].sites[i].include = prop;
 
                 }

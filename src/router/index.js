@@ -1,8 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 import Login from '../views/Login.vue'
 import Campaigns from '../views/Campaigns.vue'
-// import Campaign from '../views/Campaign.vue'
+import Campaign from '../views/Campaign.vue'
 // import Users from '../views/Users.vue'
 // import User from '../views/User.vue'
 // import Ads from '../views/Ads.vue'
@@ -10,7 +10,7 @@ import Campaigns from '../views/Campaigns.vue'
 // import Payments from '../views/Payments.vue'
 // import Sites from '../views/Sites.vue'
 
-const Placeholder = { template: '<div>Сторінка в розробці</div>' }
+const Placeholder = {template: '<div>Сторінка в розробці</div>'}
 
 const routes = [
     {
@@ -26,7 +26,7 @@ const routes = [
     {
         path: '/campaign/:id',
         name: 'Campaign',
-        component: Placeholder
+        component: Campaign
     },
     {
         path: '/users',

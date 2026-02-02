@@ -10,7 +10,7 @@
             <div class="top-bar">
                 <span class="top-bar-text">Affiliate Sign In</span>
                 <div class="top-bar-image">
-                    <img :src="parent.url+'/app/views/images/logo.svg'" alt="Logo" />
+                    <img :src="parent.url+'/app/views/images/logo.svg'" alt="Logo"/>
                 </div>
             </div>
 
@@ -58,17 +58,17 @@ export default {
     data() {
         return {
             img: 1,
-            parent: { url: '' },
+            parent: {url: ''},
             email: "",
             password: ""
         }
     },
-    mounted:function() {
-        this.img = this.randomIntFromInterval(1,7);
+    mounted: function () {
+        this.img = this.randomIntFromInterval(1, 7);
         this.parent = this.$root;
     },
     methods: {
-        randomIntFromInterval:function (min, max) {
+        randomIntFromInterval: function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
         handleLogin() {

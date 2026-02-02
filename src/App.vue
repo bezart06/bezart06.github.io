@@ -33,11 +33,11 @@ export default {
         }
     },
     watch: {
-        $route:function() {
+        $route: function () {
             this.init();
         }
     },
-    mounted:function() {
+    mounted: function () {
         this.init();
     },
     methods: {
@@ -48,12 +48,12 @@ export default {
             }
         },
         logout() {
-            this.user = {name:"", phone:"", email:"", date:"", auth:""};
+            this.user = {name: "", phone: "", email: "", date: "", auth: ""};
             this.page('/');
             window.localStorage.setItem('user', '');
         },
         scrollTop() {
-            setTimeout(function (){
+            setTimeout(function () {
                 window.scroll({
                     top: 0,
                     behavior: 'smooth'
@@ -61,19 +61,19 @@ export default {
             }, 50);
         },
         scrollBottom() {
-            setTimeout(function(){
+            setTimeout(function () {
                 window.scroll({
                     top: 1000,
                     behavior: 'smooth'
                 });
             }, 50);
         },
-        page:function (path="") {
+        page: function (path = "") {
             this.$router.replace(path);
             this.title = this.$route['name'];
             document.title = this.$route['name'];
         },
-        toFormData:function(obj) {
+        toFormData: function (obj) {
             var fd = new FormData();
 
             for (var x in obj) {

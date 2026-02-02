@@ -114,6 +114,62 @@
                         No items.
                     </div>
                 </div>
+
+                <Popup ref="chart" fullscreen="true" title="Chart">
+                    <div class="inside-content">
+                        <div class="flex panel">
+                            <div class="w30 ptb25">
+                                <div class="date-range">
+                                    <input type="date" v-model="date" @change="get()" />
+                                    <span>-</span>
+                                    <input type="date" v-model="date2" @change="get()" />
+                                </div>
+                            </div>
+                            <div class="w70 al">
+                                <div class="cubes" v-if="parent.formData">
+                                    <div class="clicks">
+                                        <div>Clicks</div>
+                                        {{ data.items[iChart].clicks }}
+                                    </div>
+                                    <div class="views">
+                                        <div>Views</div>
+                                        {{ data.items[iChart].views }}
+                                    </div>
+                                    <div class="leads">
+                                        <div>Leads</div>
+                                        {{ data.items[iChart].leads }}
+                                    </div>
+                                    <div class="ctr">
+                                        <div>CTR</div>
+                                        {{(data.items[iChart].clicks*100/data.items[iChart].views).toFixed(2)}} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex body">
+                            <div class="w30 ar filchart">
+                                <div class="itemchart ptb10" v-if="all">
+                                    <span>All</span>
+                                    <Toggle v-model="all" @update:modelValue="all = $event; checkAll($event)" />
+                                </div>
+                                <div class="itemchart ptb10" v-if="data.items[iChart].sites" v-for="s in data.items[iChart].sites">
+                                    <Toggle v-model="s.include" @update:modelValue="s.include = $event; parent.formData = data.items[iChart]; get()" />
+                                    {{s.site}}
+                                </div>
+                            </div>
+
+                            <div class="w70" id="chartOuter">
+                                <div id="chartHints">
+                                    <div class="chartHintsViews">Views</div>
+                                    <div class="chartHintsClicks">Clicks</div>
+                                </div>
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </Popup>
+
             </div>
         </div>
     </div>
@@ -307,14 +363,14 @@ export default {
             },100);
         },
         checkAll:function(prop){
-            if(this.parent.formData.sites){
-                for(let i in this.parent.formData.sites){
-                    this.parent.formData.sites[i].include = prop;
+            if(this.data.items[this.iChart].sites){
+                for(let i in this.data.items[this.iChart].sites){
+                    this.data.items[this.iChart].sites[i].include = prop;
 
                 }
             }
-            //this.parent.formData.sites = this.data.items[this.iChart];
-            this.getCampaignChart();
+            this.parent.formData = this.data.items[this.iChart];
+            this.get();
         }
     },
 };

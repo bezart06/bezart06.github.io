@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    name: 'Img',
+    name: 'Image',
     data: function () {
         return {
             value: ""

@@ -3,6 +3,8 @@ body, html {
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    color: #333;
 }
 
 *, *:before, *:after {
@@ -1109,11 +1111,10 @@ input:checked + .slider:before {
     padding: 15px;
     max-height: 350px;
     overflow-y: auto;
-    width: 35%; /* Фіксуємо ширину списку */
+    width: 35%;
     background-color: #fff;
 }
 
-/* Стилізація скролбару для списку */
 .filchart::-webkit-scrollbar {
     width: 4px;
 }
@@ -1126,13 +1127,13 @@ input:checked + .slider:before {
 .itemchart {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Розподіл тексту та значення */
+    justify-content: space-between;
     gap: 10px;
     font-size: 13px;
     color: #475569;
     padding: 10px 12px;
     border-radius: 8px;
-    border-bottom: none; /* Прибираємо старий бордер */
+    border-bottom: none;
     margin-bottom: 4px;
     transition: background-color 0.2s;
     cursor: pointer;
@@ -1153,7 +1154,7 @@ input:checked + .slider:before {
 #chartOuter {
     position: relative;
     padding: 20px;
-    width: 65%; /* Решта ширини */
+    width: 65%;
     display: flex;
     flex-direction: column;
 }
@@ -1167,7 +1168,6 @@ input:checked + .slider:before {
     font-weight: 600;
 }
 
-/* Стилізація легенди графіку */
 .chartHintsViews, .chartHintsClicks {
     display: inline-flex;
     align-items: center;
@@ -1210,4 +1210,275 @@ input:checked + .slider:before {
     border-radius: 8px;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(17, 222, 121, 0.2);
+}
+
+.msg-wrapper {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.alertMsg,
+.successMsg {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 300px;
+    max-width: 450px;
+    font-size: 15px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: showFromLeft 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alertMsg .wrapper.al,
+.successMsg .wrapper.al {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+}
+
+.alertMsg i,
+.successMsg i {
+    font-size: 20px;
+}
+
+.alertMsg i {
+    color: #d32f2f;
+}
+
+.successMsg i {
+    color: #1b5e20;
+}
+
+.panelTop {
+    background: #fff;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eaecf0;
+    padding-bottom: 10px;
+}
+
+.panelTop h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.table .image img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.table .image img:hover {
+    transform: scale(1.1);
+}
+
+.table .id .switch {
+    transform: scale(0.8);
+}
+
+.image-preview-area {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.select_img {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select_img:hover {
+    border-color: #11de79;
+    background-color: #f0fdf4;
+}
+
+.select_img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+input[type="file"][data-name="image"] {
+    display: none;
+}
+
+.select_img span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.form.inner-form {
+    padding: 10px 0;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.row label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.row input[type="text"],
+.row input[type="number"],
+.row input[type="date"],
+.row select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1e293b;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    font-family: inherit;
+}
+
+.row input:focus,
+.row select:focus {
+    border-color: #11de79;
+    box-shadow: 0 0 0 3px rgba(17, 222, 121, 0.1);
+}
+
+.row .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #11de79;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 15px;
+}
+
+.row .btn:hover {
+    background-color: #0fb863;
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f1f5f9;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.date-range input[type="date"] {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+}
+
+.dash {
+    color: #94a3b8;
+    font-weight: bold;
+}
+
+.popup .body {
+    display: flex;
+    height: 400px;
+}
+
+.chartHintsViews {
+    color: #5000B8;
+    background: rgba(80, 0, 184, 0.1);
+}
+
+.chartHintsClicks {
+    color: #00599D;
+    background: rgba(0, 89, 157, 0.1);
+}
+
+.msg-wrapper {
+    pointer-events: none;
+}
+
+.msg-wrapper .alertMsg,
+.msg-wrapper .successMsg,
+.msg-wrapper .popup,
+.msg-wrapper .popup-back {
+    pointer-events: auto !important;
+}
+
+body, html, .campaigns-container, .inside-content {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+h1 { font-size: 24px !important; margin-bottom: 5px !important; }
+h2 { font-size: 20px !important; margin: 0 !important; }
+
+.panelTop, .wrapper {
+    padding: 15px 20px !important;
+    margin-bottom: 15px !important;
+}
+
+.ptb30 { padding: 15px 0 !important; }
+.ptb20 { padding: 10px 0 !important; }
+
+table th, table td {
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+}
+
+.btnS, .btn {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    height: auto !important;
+}
+
+.row { margin-bottom: 12px !important; }
+.row label { font-size: 13px !important; margin-bottom: 4px !important; }
+.row input, .row select {
+    padding: 8px 10px !important;
+    height: auto !important;
+}
+
+.popup .botBtns {
+    margin-top: 15px !important;
+    padding-top: 10px !important;
+}
+
+.popup .botBtns .btnS {
+    margin-left: 10px;
 }

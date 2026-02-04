@@ -4,12 +4,13 @@
             <span v-if="value">
                 <img :src="value" class="im">
             </span>
-            <span v-if="!value">
-                <img :src="this.parent.url+'/app/views/images/placeholder.png'">
+            <span v-if="!value && parent">
+                <img :src="parent.url+'/app/views/images/placeholder.png'">
             </span>
         </a>
     </div>
-    <input type="file" data-name="image" ref="input" accept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml" @change="change($event)">
+    <input type="file" data-name="image" ref="input"
+           accept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml" @change="change($event)">
 </template>
 
 <script>
@@ -17,10 +18,12 @@ export default {
     name: 'Image',
     data: function () {
         return {
-            value: ""
+            value: "",
+            parent: null
         }
     },
     mounted() {
+        this.parent = this.$root;
         this.value = this.modelValue;
     },
     methods: {

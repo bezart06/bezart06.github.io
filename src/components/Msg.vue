@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <Popup ref="confirm" :title="confirmTitle">
+        <Popup ref="confirm" :title="confirmTitle" class="confirm-popup">
             <div class="confirm-content">
                 <i class="fas fa-info-circle"></i> {{ confirm }}
             </div>
@@ -43,8 +43,7 @@ export default {
             parent: null
         }
     },
-    watch: {
-    },
+    watch: {},
     mounted() {
         if (this.$parent) {
             this.parent = this.$parent;
@@ -64,7 +63,6 @@ export default {
             el.style.opacity = 1;
             el.style.transition = `opacity ${timeout}ms`;
             el.style.opacity = 0;
-
             setTimeout(() => {
                 el.style.display = 'none';
             }, timeout);
@@ -79,10 +77,8 @@ export default {
                 if (block) {
                     block.style.display = 'none';
                     block.style.opacity = '0';
-
                     clearTimeout(self.t1);
                     clearTimeout(self.t2);
-
                     self.t1 = setTimeout(function () {
                         self.fadeIn(block, 1000, 'flex');
                         self.t2 = setTimeout(function () {
@@ -103,10 +99,8 @@ export default {
                 if (block) {
                     block.style.display = 'none';
                     block.style.opacity = '0';
-
                     clearTimeout(self.t1);
                     clearTimeout(self.t2);
-
                     self.t1 = setTimeout(function () {
                         self.fadeIn(block, 1000, 'flex');
                         self.t2 = setTimeout(function () {
@@ -137,13 +131,8 @@ export default {
                 if (self.$refs.confirm) {
                     self.$refs.confirm.active = 0;
                 }
-
-                if (self.code === 1) {
-                    return true;
-                }
-                if (self.code === 2) {
-                    return false;
-                }
+                if (self.code === 1) return true;
+                if (self.code === 2) return false;
             });
         }
     }

@@ -3,8 +3,9 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 import Login from '../views/Login.vue'
 import Campaigns from '../views/Campaigns.vue'
 import Campaign from '../views/Campaign.vue'
-// import Users from '../views/Users.vue'
-// import User from '../views/User.vue'
+import Users from '../views/Users.vue'
+import User from '../views/User.vue'
+
 // import Ads from '../views/Ads.vue'
 // import Statistics from '../views/Statistics.vue'
 // import Payments from '../views/Payments.vue'
@@ -31,12 +32,12 @@ const routes = [
     {
         path: '/users',
         name: 'Users',
-        component: Placeholder
+        component: Users
     },
     {
         path: '/user/:id',
         name: 'User',
-        component: Placeholder
+        component: User
     },
     {
         path: '/ads',

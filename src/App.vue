@@ -32,6 +32,17 @@ export default {
             time: "",
         }
     },
+    created() {
+        let storedUser = window.localStorage.getItem('user');
+        if (storedUser) {
+            try {
+                this.user = JSON.parse(storedUser);
+            } catch (e) {
+                console.error("Ошибка парсинга пользователя", e);
+                this.logout();
+            }
+        }
+    },
     watch: {
         $route: function () {
             this.init();

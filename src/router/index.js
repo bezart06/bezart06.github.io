@@ -5,11 +5,10 @@ import Campaigns from '../views/Campaigns.vue'
 import Campaign from '../views/Campaign.vue'
 import Users from '../views/Users.vue'
 import User from '../views/User.vue'
-
-// import Ads from '../views/Ads.vue'
-// import Statistics from '../views/Statistics.vue'
-// import Payments from '../views/Payments.vue'
-// import Sites from '../views/Sites.vue'
+import Ads from '../views/Ads.vue'
+import Statistics from '../views/Statistics.vue'
+import Payments from '../views/Payments.vue'
+import Sites from '../views/Sites.vue'
 
 const Placeholder = {template: '<div>Сторінка в розробці</div>'}
 
@@ -42,22 +41,22 @@ const routes = [
     {
         path: '/ads',
         name: 'Ads',
-        component: Placeholder
+        component: Ads
     },
     {
         path: '/statistics',
         name: 'Statistics',
-        component: Placeholder
+        component: Statistics
     },
     {
         path: '/payments',
         name: 'Payments',
-        component: Placeholder
+        component: Payments
     },
     {
         path: '/sites',
         name: 'Sites',
-        component: Placeholder
+        component: Sites
     },
 ]
 

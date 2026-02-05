@@ -1658,3 +1658,231 @@ table th, table td {
     color: #00599D;
     border-bottom: 1px solid #00599D;
 }
+
+@media screen and (max-width: 768px) {
+
+    .flex {
+        flex-wrap: wrap;
+    }
+
+    .w10, .w20, .w30, .w40, .w50, .w60, .w70, .w80, .w90 {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    .ar, .al, .ac {
+        text-align: center !important;
+    }
+
+    .ptb10, .ptb15, .ptb20, .ptb30 {
+        padding: 10px 0 !important;
+    }
+
+    .login-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .login-container .left-side {
+        display: none;
+    }
+
+    .login-container .right-side {
+        width: 100%;
+        flex: 1;
+    }
+
+    .login-container .form-wrapper {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .header .flex {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .header .w20.logo {
+        width: auto !important;
+        text-align: left;
+    }
+
+    .header .w70 {
+        width: auto !important;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        order: 2;
+        position: static;
+    }
+
+    .header .w10 {
+        width: auto !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        order: 1;
+    }
+
+    .mobile-bars {
+        display: block !important;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+        color: #fff;
+    }
+
+    #menu ul {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #3a3a3a;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        padding: 0;
+    }
+
+    #menu ul.active {
+        display: flex !important;
+    }
+
+    #menu ul li {
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #menu ul li a {
+        font-size: 20px;
+        display: block;
+        padding: 10px;
+    }
+
+    .close-menu {
+        display: block !important;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #user-info {
+        top: 60px;
+        right: 10px;
+        width: 200px;
+    }
+
+    .panel {
+        flex-direction: column;
+    }
+
+    .panel > div {
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .date-range {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .date-range input {
+        width: 100%;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+
+    .date-range span {
+        display: none;
+    }
+
+    .btnS, .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .cubes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cubes > div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .chart-container-wrapper {
+        flex-direction: column;
+    }
+
+    .filchart {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        max-height: 200px;
+    }
+
+    #chartOuter {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .popup {
+        width: 95%;
+        max-width: 95%;
+        height: auto;
+        max-height: 90vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-left: 0;
+        animation: none;
+    }
+
+    .popup .body {
+        height: auto;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .table {
+        margin-bottom: 20px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    th, td {
+        padding: 8px 5px !important;
+        font-size: 12px !important;
+    }
+
+    .table .actions a {
+        margin: 0 2px;
+        font-size: 14px;
+    }
+
+    .table td.image img {
+        height: 30px !important;
+    }
+
+    .row input, .row select, .row textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
